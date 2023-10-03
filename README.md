@@ -1,24 +1,21 @@
 # alura-tracker
 
+## Requires
+- Docker
+- Docker Compose
+
 ## Project setup
+
 ```
-npm install
+git clone https://github.com/biancamota/alura-tracker.git
 ```
 
-### Compiles and hot-reloads for development
 ```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
+cd alura-tracker
 ```
 
-### Lints and fixes files
 ```
-npm run lint
+docker-compose up -d
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+http://localhost:9000/
