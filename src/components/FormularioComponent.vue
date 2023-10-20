@@ -2,7 +2,7 @@
   <div class="box formulario">
     <div class="columns">
       <div
-        class="column is-8"
+        class="column is-5"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
-import Temporizador from "./Temporizador.vue";
+import Temporizador from "./TemporizadorComponent.vue";
 import { useStore } from "vuex";
 
 import { key } from "@/store";
