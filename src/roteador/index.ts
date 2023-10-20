@@ -1,36 +1,43 @@
-import IProjeto from "@/interfaces/IProjeto";
-import { createStore, Store, useStore as vuexUseStore } from "vuex";
-import { InjectionKey } from 'vue'
-import { ADICIONA_PROJETO, ALTERA_PROJETO, EXCLUIR_PROJETO } from "../store/tipo-mutacoes";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import Tarefa from '../views/Tarefa.vue'
+import Projeto from '../views/Projeto.vue'
+import Formulario from '../views/projeto/Formulario.vue'
+import Lista from '../views/projeto/Lista.vue'
 
-interface Estado {
-    projetos: IProjeto[]
-}
-
-export const key: InjectionKey<Store<Estado>> = Symbol()
-
-export const store = createStore<Estado>({
-    state: {
-        projetos: []
+const rotas: RouteRecordRaw[] = [
+    {
+        path: '/',
+        name: 'Tarefas',
+        component: Tarefa
     },
-    mutations: {
-        [ADICIONA_PROJETO](state, nomeDoProjeto: string) {
-            const projeto = {
-                id: new Date().toISOString(),
-                nome: nomeDoProjeto
-            } as IProjeto
-            state.projetos.push(projeto)
-        },
-        [ALTERA_PROJETO] (state, projeto: IProjeto) {
-            const index = state.projetos.findIndex(proj => proj.id == projeto.id)
-            state.projetos[index] = projeto
-        },
-        [EXCLUIR_PROJETO](state, id: string) {
-            state.projetos = state.projetos.filter(proj => proj.id != id)
-        }
+    {
+        path: '/projetos',
+        component: Projeto,
+        children: [
+            {
+                path: '',
+                name: 'Projetos',
+                component: Lista
+            },
+            {
+                path: 'novo',
+                name: 'Novo projeto',
+                component: Formulario
+            },
+            {
+                path: ':id',
+                name: 'Editar projeto',
+                component: Formulario,
+                props: true
+            },
+        ]
     }
+]
+
+
+const roteador = createRouter({
+    history: createWebHashHistory(),
+    routes: rotas
 })
 
-export function useStore(): Store<Estado> {
-    return vuexUseStore(key)
-}
+export default roteador;
